@@ -1,18 +1,18 @@
 import io
-import os
 
 import streamlit as st
 import fridge_based_manu
-from PIL import Image
-import tempfile
+
 
 st.sidebar.write("Upload photo and choose meal time")
 st.sidebar.markdown('---')
 # # # Uploading photo
-uploaded_photo = st.sidebar.file_uploader("Upload fridge image", type=["jpg", 'png'])
+uploaded_photo = st.sidebar.file_uploader("Upload fridge image", type=["jpg", 'png'], key="uploaded_photo")
 
 # # # Getting propositions of the meal
-chosen_time_of_meal = st.sidebar.selectbox('Choose meal timee', ['Breakfast', 'Dinner', 'Supper'])
+chosen_time_of_meal = st.sidebar.selectbox('Choose meal timee', ['Breakfast', 'Dinner', 'Supper'], key="chosen_time")
+
+st.write(st.session_state)
 
 if uploaded_photo:
 
@@ -37,7 +37,7 @@ if uploaded_photo:
             st.write(el['name'] + ' - ' + el['description'])
 
     options = [x['name'] for x in dish.meals_props]
-    dish.chosen_meal_prop = st.selectbox('What dish did you choose?', options=options)
+    dish.chosen_meal_prop = st.selectbox('What dish did you choose?', options=options, key='chosen_meal_prop')
 
     dish.get_instructions()
     with st.expander('Show full instruction of the chosen dish'):
