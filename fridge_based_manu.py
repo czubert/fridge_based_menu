@@ -131,6 +131,7 @@ class FridgeMenu:
                             "type": "text",
                             "text": f"Give me the detailed recipe for the following dish: {self.chosen_meal_prop}"
                                     f"using the ingredients from the list: {self.ingredients}."
+                                    f"Do not add intro nor outro to the recipe!"
                                     f"Follow the Markdown formatting."
                         },
                     ]
@@ -143,7 +144,7 @@ class FridgeMenu:
     def create_meal_picture(self):
         response = client.images.generate(
             model="dall-e-3",
-            prompt=f"Prepare realistic image of the {self.chosen_meal_prop} dish, "
+            prompt=f"Prepare realistic image of the {self.chosen_meal_prop} dish. Do not too many items there."
                    f"which was prepared according to the following recipe: {self.instruction}",
             size="1024x1024",
             quality="standard",
